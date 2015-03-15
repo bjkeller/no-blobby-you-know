@@ -1,0 +1,23 @@
+{
+  "name": "blobby",
+  "version": "0.0.1",
+  "description": "JavaScript library for drawing hypergraphs",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bjkeller/no-blobby-you-know.git"
+  },
+  "license": "MIT",
+  "main": "build/blobby.require.js",
+  "dependencies": {
+    "core-js": "latest"
+  },
+  "devDependencies": {
+    "jshint": "latest",
+    "babel": "latest",
+    "browserify": "latest"
+  },
+  "scripts": {
+    "compile": "babel -d build/ src/",
+    "prepublish": "npm run compile"
+  }
+}
