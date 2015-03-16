@@ -2,7 +2,7 @@
 
 //flow 0.4.0 doesn't support ES6 module system
 
-var Point = require('./blobby.geometry.point').Point;
+var Point = require('./blobby.geometry.point.es6').Point;
 
 // from http://stackoverflow.com/questions/7624920/number-sign-in-javascript
 function sign(x) {
@@ -17,7 +17,7 @@ class LineSegment {
     this.p1 = p1;
     this.p2 = p2;
   }
-  
+
   length(): number {
     return this.p1.computeDistanceTo(this.p2);
   }

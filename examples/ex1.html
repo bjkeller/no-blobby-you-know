@@ -4,16 +4,16 @@
     <meta charset="utf-8"/>
     <title>Blobby Example 1</title>
     <script src="../build/blobby.min.js"></script>
-        <script type="text/javascript">
+    <script type="text/javascript">
     function draw() {
       var canvas = document.getElementById('thegraph');
       var context = canvas.getContext('2d');
       if (context) {
-        var n1 = new Node(500,200);
-        var n2 = new Node(400,600);
-        var n3 = new Node(200,400);
-        var n4 = new Node(560,480);
-        var n5 = new Node(250,160);
+        var n1 = new Node(new Point(500,200));
+        var n2 = new Node(new Point(400,600));
+        var n3 = new Node(new Point(200,400));
+        var n4 = new Node(new Point(560,480));
+        var n5 = new Node(new Point(250,160));
 
         var h1 = new Edge([ n1 ]);
         var h2 = new Edge([ n2 ]);

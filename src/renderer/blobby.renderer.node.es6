@@ -1,6 +1,6 @@
 /* @flow */
 
-var Node = require('../hypergraph/blobby.hypergraph.node').Node;
+var Node = require('../hypergraph/blobby.hypergraph.node.es6').Node;
 
 function drawNode(context : any, node : Node) : void {
   var fillStyle = context.fillStyle;

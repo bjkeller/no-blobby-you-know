@@ -1,6 +1,6 @@
 /* @flow */
-var Node = require('./blobby.hypergraph.node').Node;
-var Edge = require('./blobby.hypergraph.edge').Edge;
+var Node = require('./blobby.hypergraph.node.es6').Node;
+var Edge = require('./blobby.hypergraph.edge.es6').Edge;
 
 class Graph {
   nodes : Array<Node>;

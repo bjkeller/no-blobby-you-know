@@ -1,7 +1,7 @@
 /* @flow */
 
-var PointSet = require('../geometry/blobby.geometry.pointset').PointSet;
-var Node = require('../hypergraph/blobby.hypergraph.node').Node;
+var PointSet = require('../geometry/blobby.geometry.pointset.es6').PointSet;
+var Node = require('../hypergraph/blobby.hypergraph.node.es6').Node;
 
 class Edge {
   nodes : Array<Node>;

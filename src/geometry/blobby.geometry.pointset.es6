@@ -1,6 +1,6 @@
 /* @flow */
 
-var Point = require('./blobby.geometry.point').Point;
+var Point = require('./blobby.geometry.point.es6').Point;
 
 function compareAnglesBy(pivot : Point) {
   var comp = function comp(p1,p2) {

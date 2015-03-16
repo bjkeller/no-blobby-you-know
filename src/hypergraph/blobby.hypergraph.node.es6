@@ -1,6 +1,6 @@
 /* @flow */
 
-var Point = require('../geometry/blobby.geometry.point').Point;
+var Point = require('../geometry/blobby.geometry.point.es6').Point;
 
 class Node {
   pt : Point;
@@ -14,6 +14,8 @@ class Node {
     this.color = 'white';
     this.strokeColor = 'black';
   }
+
+  
 
   toString() : string {
     return "Node ["+this.pt.x+","+this.pt.y+"]";

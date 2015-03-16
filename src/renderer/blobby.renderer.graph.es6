@@ -1,5 +1,7 @@
 /* @flow */
 
+var Graph = require('../hypergraph/blobby.hypergraph.graph.es6');
+
 function drawHypergraph( context: any, graph: Graph) {
   for (var i = 0; i < graph.edges.length; i++) {
     drawHyperedge(context, graph.edges[i]);

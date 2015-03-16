@@ -1,10 +1,10 @@
 /* @flow */
 
-var Point = require('../geometry/blobby.geometry.point').Point;
-var PointSet = require('../geometry/blobby.geometry.pointset').PointSet;
-var LineSegment = require('../geometry/blobby.geometry.linesegment').LineSegment;
-var Node = require('../hypergraph/blobby.hypergraph.node').Node;
-var Edge = require('../hypergraph/blobby.hypergraph.edge').Edge;
+var Point = require('../geometry/blobby.geometry.point.es6').Point;
+var PointSet = require('../geometry/blobby.geometry.pointset.es6').PointSet;
+var LineSegment = require('../geometry/blobby.geometry.linesegment.es6').LineSegment;
+var Node = require('../hypergraph/blobby.hypergraph.node.es6').Node;
+var Edge = require('../hypergraph/blobby.hypergraph.edge.es6').Edge;
 
 function computeConvexHull(edge) : PointSet {
   var points = edge.getPointSet();
@@ -107,7 +107,7 @@ function drawEdge(context: any, convexHull: Array<Point>, pad: number) {
 function drawHyperedge(context : any, edge : Edge) {
   var fillStyle = context.fillStyle;
   var strokeStyle = context.strokeStyle;
-  
+
   var convexHull = computeConvexHull(edge).pset;
   if (convexHull.length > 0) {
     if (convexHull.length === 1) {
