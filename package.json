@@ -14,10 +14,12 @@
   "devDependencies": {
     "jshint": "latest",
     "babel": "latest",
-    "browserify": "latest"
+    "browserify": "latest",
+    "babelify": "latest"
   },
   "scripts": {
-    "compile": "babel -d build/ src/",
-    "prepublish": "npm run compile"
+    "build:compile": "babel -d build/ src/",
+    "build:min" : "browserify src/blobby.require.es6 -t babelify --outfile build/blobby.min.js",
+    "build" : "npm run build:min"
   }
 }

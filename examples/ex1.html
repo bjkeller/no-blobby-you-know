@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Blobby Example 1</title>
+    <script src="../build/blobby.min.js"></script>
+        <script type="text/javascript">
+    function draw() {
+      var canvas = document.getElementById('thegraph');
+      var context = canvas.getContext('2d');
+      if (context) {
+        var n1 = new Node(500,200);
+        var n2 = new Node(400,600);
+        var n3 = new Node(200,400);
+        var n4 = new Node(560,480);
+        var n5 = new Node(250,160);
+
+        var h1 = new Edge([ n1 ]);
+        var h2 = new Edge([ n2 ]);
+        var h3 = new Edge([ n1, n2, n3, n4, n5]);
+        var h4 = new Edge([ n2, n5 ]);
+
+        var gph = new Graph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
+
+        drawHypergraph(context,gph);
+      }
+    }
+    </script>
+    <style type="text/css">
+      canvas { border: 1px solid black; }
+    <style>
+  </head>
+  <body onload="draw();">
+    <canvas id="thegraph" width="900" height="900"></canvas>
+  </body>
+</html>

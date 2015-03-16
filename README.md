@@ -19,10 +19,15 @@ When run, Blobby looks like this, and allowed you to add or remove annotations o
 With blobby.js, the intent is simply to render an already laid-out graph/hypergraph to Canvas, allowing for style (e.g., color) changes.
 Interactivity may come as its needed.
 
-Like the original Blobby, I'm not trying to detect a bad graph layout. Meaning that a vertex might be rendered over top of the blob for a hyperedge that it does not belong to.  This is a layout issue, which would have to be resolved if users can rearrange the graph.
+Like the original Blobby, I'm not trying to detect a bad graph layout. Meaning that a vertex might be rendered over top of the blob for a hyperedge that it does not belong to.  This is a layout issue, which would have to be resolved in this code if users are allowed to rearrange the graph.
 
 ##What you'll need
-The code is written in EcmaScript 6 with Flow annotations. At a minimum, you will need **npm** to get started.
+The code is written in EcmaScript 6 with Flow annotations. At a minimum, you will need **npm** to get started. Head over to [node.js](https://nodejs.org) for installation information on installing **node**, which will get you **npm**. Once you have it installed, it should be sufficient to run
+
+    npm install
+
+to get everything going.
+
 If you are going to do any coding, you'll also need **flow** (see [flowtype.org](http://flowtype.org))
 
 ##The code
