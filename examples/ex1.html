@@ -9,20 +9,34 @@
       var canvas = document.getElementById('thegraph');
       var context = canvas.getContext('2d');
       if (context) {
-        var n1 = new Node(new Point(500,200));
-        var n2 = new Node(new Point(400,600));
-        var n3 = new Node(new Point(200,400));
-        var n4 = new Node(new Point(560,480));
-        var n5 = new Node(new Point(250,160));
 
-        var h1 = new Edge([ n1 ]);
-        var h2 = new Edge([ n2 ]);
-        var h3 = new Edge([ n1, n2, n3, n4, n5]);
-        var h4 = new Edge([ n2, n5 ]);
+        var blobby = require('./blobby');
 
-        var gph = new Graph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
+        var n1 = { "id": 1, "label": "A" }; //new Node(new Point(500,200));
+        var n2 = { "id": 2, "label": "B" }; //new Node(new Point(400,600));
+        var n3 = { "id": 3, "label": "C" }; //new Node(new Point(200,400));
+        var n4 = { "id": 4, "label": "D" }; //new Node(new Point(560,480));
+        var n5 = { "id": 5, "label": "E" }; //new Node(new Point(250,160));
 
-        drawHypergraph(context,gph);
+        var h1 = { "id": 1, nodes: [ n1 ] };            //new Edge([ n1 ]);
+        var h2 = { "id": 2, nodes: [ n2 ] };            //new Edge([ n2 ]);
+        var h3 = { "id": 3, nodes: [ n2, n3, n4, n5] }; //new Edge([ n1, n2, n3, n4, n5]);
+        var h4 = { "id": 4, nodes: [ n2, n5 ]};        //new Edge([ n2, n5 ]);
+
+        var gph = blobby.createGraph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
+
+        var gphstyle = blobby.defaultStyle(gph);
+
+        var nodepos = {
+          "1": { "x": 500, "y": 200 },
+          "2": { "x": 400, "y": 600 },
+          "3": { "x": 200, "y": 400 },
+          "4": { "x": 560, "y": 480 },
+          "5": { "x": 250, "y": 160 }
+        };
+        var gphlayout = blobby.createLayout(gph,nodepos,gphstyle.maxPadSize());
+
+        blobby.drawHypergraph(context,gph);
       }
     }
     </script>

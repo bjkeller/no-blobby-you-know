@@ -7,7 +7,7 @@
     "url": "http://github.com/bjkeller/no-blobby-you-know.git"
   },
   "license": "MIT",
-  "main": "build/blobby.require.js",
+  "main": "build/blobby.min.js",
   "dependencies": {
     "core-js": "latest"
   },
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build:compile": "babel -d build/ src/",
-    "build:min" : "browserify --extension=es6 src/blobby.require.es6 -t babelify --outfile build/blobby.min.js",
+    "build:min" : "browserify --extension=es6 src/blobby.es6 -t babelify --outfile build/blobby.min.js",
     "build" : "npm run build:min"
   }
 }

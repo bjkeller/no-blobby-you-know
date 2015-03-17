@@ -31,9 +31,68 @@ to get everything going.
 If you are going to do any coding, you'll also need **flow** (see [flowtype.org](http://flowtype.org))
 
 ##The code
-Flow and ES6 have a tense relationship, and while my goal was to take advantage of ES6 as much as possible, when flow says "Unimplemented: BLAH" then I stripped out my use of BLAH. At the moment this means
+Flow and ES6 have a tense relationship, and while my goal was to take advantage of ES6 as much as possible, when flow says "Unimplemented: WHATEVER" then I stripped out my use of WHATEVER. At the moment this means
 
 1. ES6 module import
 2. let/const instead of var
 
 When flow catches up to the standard, and I notice, I'll shift it that way.
+Another tidbit specific to flow is the use of type aliases, which at the moment cannot be shared across modules. So, I've ended up putting shared aliases into blocks. Eventually, these will replaced by imports from the appropriate modules.
+
+##Using blobby.js
+the model for blobby is that the style and layout of the graph are maps from its components.
+Components of a graph, using flow types, are simply objects:
+
+    type Node = { id: number, label: string };
+    type Edge = { id: number, label: string, nodes: Array<Node> };
+    type Arc =  { id: number, label: string, src: Node, tgt: Node };
+
+where an Arc is actually just a simple edge. A Graph is simply a tuple of sets of these components.
+
+A layout is determined by a map of type
+
+    Node => Point
+
+this map induces maps
+
+    Edge => PointSet
+    Arc => (Point,Point)
+
+based on inclusion of nodes in a hyperedge or simple edge. The layout can be determined by an object literal that specifies the positions of each node by id. For example, a graph with five nodes might have positions set as
+
+    var nodepos = {
+      "1": { "x": 500, "y": 200 },
+      "2": { "x": 400, "y": 600 },
+      "3": { "x": 200, "y": 400 },
+      "4": { "x": 560, "y": 480 },
+      "5": { "x": 250, "y": 160 }
+    };
+
+The rendering of the graph is done using the layout and style. The layout determines the position of the nodes/edges/arcs, while the style determines what they look like. Each component type has its own style type:
+
+    type NodeStyle = {
+      size: number,
+      fillColor: string,
+      strokeColor: string,
+      strokeWidth: number
+    };
+
+    type EdgeStyle = {
+      padSize: number,
+      fillColor: string,
+      strokeColor: string
+      strokeWidth: number
+    }
+
+    type ArcStyle = {
+      strokeColor: string,
+      strokeWidth: number
+    };
+
+The styles are assigned to the graph by specifying maps
+
+    Node => NodeStyle
+    Edge => EdgeStyle
+    Arc => ArcStyle
+
+ using an object to relate component IDs to the corresponding style. Since, this could get hairy big, we need other ways to specify styles.
