@@ -2,14 +2,14 @@
 
 //flow 0.4.0 doesn't support ES6 module system
 
-var Point = require('./blobby.geometry.point.es6').Point;
+import Point from 'blobby.geometry.point';
 
 // from http://stackoverflow.com/questions/7624920/number-sign-in-javascript
 function sign(x) {
   return typeof x === 'number' ? x ? x < 0 ? -1 : 1 : x === x ? 0 : NaN : NaN;
 }
 
-class LineSegment {
+export default class LineSegment {
   p1 : Point;
   p2 : Point;
 
@@ -41,6 +41,25 @@ class LineSegment {
 
     return new Point(x,y);
   }
+
+  //computes point that is translated along the line p1-p2 distance dist from p1
+  //
+  translatePoint(dist : number) : Point {
+    var vx = this.p2.x-this.p1.x;
+    var vy = this.p2.y-this.p1.y;
+    var vnorm = Math.sqrt(vx*vx + vy*vy);
+    return new Point(this.p1.x + dist*vx/vnorm, this.p1.y + dist*vy/vnorm);
+  }
+
+  //find point p that is dist distance away from p1 on line perpendicular to
+  // line determined by p1 and p2
+  //
+  perpendicularPoint(dist : number) : Point {
+    var vy = -(this.p2.x-this.p1.x)/(this.p2.y-this.p1.y);
+    var vnorm = Math.sqrt(1 + vy*vy);
+    return new Point(this.p1.x + dist/vnorm, this.p1.y + dist*vy/vnorm);
+  }
+
 }
 
-module.exports.LineSegment = LineSegment;
+//module.exports.LineSegment = LineSegment;

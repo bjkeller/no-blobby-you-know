@@ -1,6 +1,6 @@
 /* @flow */
-
-var Point = require('./blobby.geometry.point.es6').Point;
+import Point from 'blobby.geometry.point';
+//var Point = require('./blobby.geometry.point.es6').Point;
 
 function compareAnglesBy(pivot : Point) {
   var comp = function comp(p1,p2) {
@@ -29,7 +29,7 @@ function computeOrientation(p : Point,q : Point, r : Point) {
   return (q.x-p.x)*(r.y-p.y) - (q.y-p.y)*(r.x-p.x);
 }
 
-class PointSet {
+export default class PointSet {
   pset : Array<Point>;
 
   constructor(a : Array<Point> = []) {
@@ -121,4 +121,4 @@ class PointSet {
 
 }
 
-module.exports.PointSet = PointSet;
+//module.exports.PointSet = PointSet;

@@ -1,7 +1,7 @@
 /* @flow */
 
 //flow 0.4.0 doesn't support ES6 module system
-class Point {
+export default class Point {
   x: number;
   y: number;
   constructor(x:number, y:number) {
@@ -31,9 +31,15 @@ class Point {
     var dy = p.y - this.y;
     return Math.sqrt(dx*dx + dy*dy);
   }
+  computeAngle(p2 : Point) : number {
+    var dx = p2.y - this.y;
+    var dy = p2.x - this.x;
+
+    return Math.atan2(dx,dy);
+  }
   toString() : string {
     return "Point[ " + this.x + ", " + this.y + "]";
   }
 }
 
-module.exports.Point = Point;
+//module.exports.Point = Point;

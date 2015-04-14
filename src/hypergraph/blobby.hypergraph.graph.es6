@@ -1,19 +1,19 @@
 /* @flow */
-//var Node = require('./blobby.hypergraph.node.es6').Node;
-//var Edge = require('./blobby.hypergraph.edge.es6').Edge;
 
 type Node = { id: number, label: string };
 type Edge = { id: number, label: string, nodes: Array<Node> };
-type Arc = { id: number, src: Node, tgt: Node };
+type Arc  = { id: number, src: Node, tgt: Node };
 
-class Graph {
+export default class Graph {
   nodes : Array<Node>;
   edges : Array<Edge>;
+  arcs  : Array<Arc>;
 
-  constructor(nodes: Array<Node>, edges: Array<Edge>) {
+  constructor(nodes: Array<Node>, edges: Array<Edge>, arcs: Array<Arc>) {
     this.nodes = nodes.slice();
     this.edges = edges.slice();
+    this.arcs  = arcs.slice();
   }
 }
 
-module.exports.Graph = Graph;
+//module.exports.Graph = Graph;
