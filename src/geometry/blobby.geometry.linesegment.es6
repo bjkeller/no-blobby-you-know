@@ -2,7 +2,7 @@
 
 //flow 0.4.0 doesn't support ES6 module system
 
-import Point from 'blobby.geometry.point';
+import Point from './blobby.geometry.point';
 
 // from http://stackoverflow.com/questions/7624920/number-sign-in-javascript
 function sign(x) {

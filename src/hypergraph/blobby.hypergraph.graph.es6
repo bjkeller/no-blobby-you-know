@@ -1,8 +1,8 @@
 /* @flow */
 
-type Node = { id: number, label: string };
-type Edge = { id: number, label: string, nodes: Array<Node> };
-type Arc  = { id: number, src: Node, tgt: Node };
+type Node = { id: number; label: string };
+type Edge = { id: number; label: string; nodes: Array<Node> };
+type Arc  = { id: number; src: Node; tgt: Node };
 
 export default class Graph {
   nodes : Array<Node>;
