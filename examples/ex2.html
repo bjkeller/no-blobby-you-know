@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Blobby Example 2</title>
+    <script src="../build/blobby.min.js"></script>
+    <script type="text/javascript">
+    function draw(){
+      var canvas = document.getElementById('thegraph');
+      if (canvas.getContext){
+        var ctx = canvas.getContext('2d');
+        console.log('enter');
+        var blobby = require('blobby');
+
+        var n1 = { id: '1', label: 'A' };
+        var n2 = { id: '2', label: 'B' };
+        var n3 = { id: '3', label: 'C' };
+        var n4 = { id: '4', label: 'D' };
+        var n5 = { id: '5', label: 'E' };
+
+        var h1 = { id: '1', nodes: [ n1 ] };
+        var h2 = { id: '2', nodes: [ n2 ] };
+        var h3 = { id: '3', nodes: [ n2, n3, n4, n5] };
+        var h4 = { id: '4', nodes: [ n2, n5 ]};
+
+        var nodepos = {
+          '1': { x: 500, y: 200 },
+          '2': { x: 400, y: 600 },
+          '3': { x: 200, y: 400 },
+          '4': { x: 560, y: 480 },
+          '5': { x: 250, y: 160 }
+        };
+
+        var gph = blobby.createGraph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
+        var gphLayout = blobby.createLayout(gph,nodepos);
+
+        blobby.drawHypergraph(ctx,gph,gphLayout);
+        console.log('exit');
+      }
+    }
+    </script>
+    <style type="text/css">
+      canvas { border: 1px solid black; }
+    </style>
+  </head>
+  <body onload="draw();">
+    <canvas id="thegraph" width="900" height="900"></canvas>
+  </body>
+</html>

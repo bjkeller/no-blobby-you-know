@@ -12,14 +12,15 @@
     "core-js": "latest"
   },
   "devDependencies": {
-    "jshint": "latest",
-    "babel": "latest",
-    "browserify": "latest",
-    "babelify": "latest"
+    "babel": "^4.7.16",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "immutable": "^3.6.4",
+    "jshint": "^2.7.0"
   },
   "scripts": {
     "build:compile": "babel -d build/ src/",
-    "build:min" : "browserify --extension=es6 src/blobby.es6 -t babelify --outfile build/blobby.min.js",
-    "build" : "npm run build:min"
+    "build:min": "browserify -r ./build/blobby.js:blobby  --outfile build/blobby.min.js",
+    "build": "npm run build:min"
   }
 }

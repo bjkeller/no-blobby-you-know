@@ -1,8 +1,17 @@
 /* @flow */
+"use strict";
+/*
+ * Copyright (c) 2015 Benjamin Keller
+ * All rights reserved
+ *
+ * This source code is licensed under the MIT License found in the LICENSE
+ * file in the route directory of the source tree.
+ *
+ */
 
 //flow 0.4.0 doesn't support ES6 module system
 
-import Point from './blobby.geometry.point';
+import Point from './Point';
 
 // from http://stackoverflow.com/questions/7624920/number-sign-in-javascript
 function sign(x) {

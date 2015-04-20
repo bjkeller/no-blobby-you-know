@@ -1,5 +1,15 @@
 /* @flow */
-import Point from './blobby.geometry.point';
+"use strict";
+/*
+ * Copyright (c) 2015 Benjamin Keller
+ * All rights reserved
+ *
+ * This source code is licensed under the MIT License found in the LICENSE
+ * file in the route directory of the source tree.
+ *
+ */
+
+import Point from './Point';
 
 function compareAnglesBy(pivot : Point) {
   var comp = function comp(p1,p2) {
@@ -37,7 +47,7 @@ export default class PointSet {
 
 // adds new point so that the minimum is last element of pset array
   add(p : Point) {
-    if (this.pset.length > 1) {
+    if (this.pset.length >= 1) {
       var min = this.pset[this.pset.length-1];
       var comp = min.compareTo(p);
       if (comp > 0) {
