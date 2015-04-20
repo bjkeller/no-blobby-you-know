@@ -27,7 +27,7 @@ function createSingletonPath(context: any, convexHull: PointSet, pad: number) {
 // transmogrified code from
 // http://scaledinnovation.com/analytics/splines/aboutSplines.html
 //
-function getControlPoints(p0,p1,p2){
+function getControlPoints(p0:Point,p1:Point,p2:Point) : Array<Point> {
   var d01= p0.computeDistanceTo(p1);
   var d12= p1.computeDistanceTo(p2);
   var fa = d01/(d01+d12);   // scaling factor for triangle Ta
@@ -132,19 +132,17 @@ export default function drawHyperedge(context : any,
   var convexHull = layout.get(edge).computeConvexHull();
   if (convexHull.size() > 0) {
     if (convexHull.size() === 1) {
-      console.log("singleton");
       edgePath = createSingletonPath(context,convexHull,style.padSize);
     } else if (convexHull.size() === 2) {
-      console.log("pair");
       edgePath = createPairPath(context,convexHull,style.padSize);
     } else {
-      console.log("hull");
       edgePath = createHullPath(context,convexHull,style.padSize);
     }
-    edgePath.fillStyle = style.fillColor;
+    context.fillStyle = style.fillColor;
     context.fill(edgePath);
-    edgePath.strokeStyle = style.strokeColor;
+    context.strokeStyle = style.strokeColor;
     context.stroke(edgePath);
-
+    context.fillStyle = fillStyle;
+    context.strokeStyle = strokeStyle;
   }
 }

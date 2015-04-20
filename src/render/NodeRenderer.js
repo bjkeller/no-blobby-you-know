@@ -19,9 +19,9 @@ export default function drawNode(context : any,
   var pos = layout.get(node);
   var nodePath = new Path2D();
   nodePath.arc(pos.x,pos.y,style.size,0,Math.PI*2,true);
-  nodePath.fillStyle = style.fillColor;
-  nodePath.strokeStyle = style.strokeColor;
-  nodePath.lineWidth = style.strokeWidth;
+  context.fillStyle = style.fillColor;
+  context.strokeStyle = style.strokeColor;
+  context.lineWidth = style.strokeWidth;
 
   context.fill(nodePath);
   context.stroke(nodePath);

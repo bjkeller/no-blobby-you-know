@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title>Blobby Example 2</title>
+    <title>Blobby Example 3</title>
     <script src="../build/blobby.min.js"></script>
     <script type="text/javascript">
     function draw(){
@@ -11,30 +11,26 @@
         var ctx = canvas.getContext('2d');
         var blobby = require('blobby');
 
-        var n1 = { id: '1', label: 'A' };
-        var n2 = { id: '2', label: 'B' };
-        var n3 = { id: '3', label: 'C' };
-        var n4 = { id: '4', label: 'D' };
-        var n5 = { id: '5', label: 'E' };
+        var n2 = { id: '1', label: 'A' }; //new Node(200,201);
+        var n5 = { id: '2', label: 'B' }; //new Node(400,200);
 
-        var h1 = { id: '1', nodes: [ n1 ] };
-        var h2 = { id: '2', nodes: [ n2 ] };
-        var h3 = { id: '3', nodes: [ n2, n3, n4, n5] };
-        var h4 = { id: '4', nodes: [ n2, n5 ]};
+        var h5 = { id: '1', nodes: [ n2, n5 ] };
+        /*
+          'padSize': 20,
+          'color': "rgba(163, 127, 191, 0.6)",
+          'strokeColor': "rgba(91, 191, 63, 0.6)"
+        };
+        */
+        var gph = blobby.createGraph([n2,n5],[h5]);
 
         var nodepos = {
-          '1': { x: 500, y: 200 },
-          '2': { x: 400, y: 600 },
-          '3': { x: 200, y: 400 },
-          '4': { x: 560, y: 480 },
-          '5': { x: 250, y: 160 }
+          '1': { x: 200, y: 200 },
+          '2': { x: 400, y: 200 }
         };
 
-        var gph = blobby.createGraph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
         var gphLayout = blobby.createLayout(gph,nodepos);
 
         blobby.drawHypergraph(ctx,gph,gphLayout);
-
       }
     }
     </script>
