@@ -30,8 +30,8 @@ function createSingletonPath(context: any, convexHull: PointSet, pad: number) {
 function getControlPoints(p0:Point,p1:Point,p2:Point) : Array<Point> {
   var d01= p0.computeDistanceTo(p1);
   var d12= p1.computeDistanceTo(p2);
-  var fa = d01/(d01+d12);   // scaling factor for triangle Ta
-  var fb = d12/(d01+d12);   // ditto for Tb, simplifies to fb=t-fa
+  var fa = 0.4*d01/(d01+d12);   // scaling factor for triangle Ta
+  var fb = 0.4*d12/(d01+d12);   // ditto for Tb, simplifies to fb=t-fa
   var cpt1 = new Point(p1.x-fa*(p2.x-p0.x), p1.y-fa*(p2.y-p0.y));
   var cpt2 = new Point(p1.x+fb*(p2.x-p0.x), p1.y+fb*(p2.y-p0.y));
   return [cpt1,cpt2];
@@ -120,7 +120,7 @@ function createHullPath(context: any, convexHull: PointSet, pad: number) {
   return edgePath;
 }
 
-//TODO: make sure padding is big enough for node size!
+
 export default function drawHyperedge(context : any,
                                       edge: Edge,
                                       layout: EdgeLayout,

@@ -11,20 +11,15 @@
         var ctx = canvas.getContext('2d');
         var blobby = require('blobby');
 
-        var n2 = { id: '1', label: 'A' }; //new Node(200,201);
-        var n5 = { id: '2', label: 'B' }; //new Node(400,200);
+        var n2 = { id: '1', label: 'A' };
+        var n5 = { id: '2', label: 'B' };
 
         var h5 = { id: '1', nodes: [ n2, n5 ] };
-        /*
-          'padSize': 20,
-          'color': "rgba(163, 127, 191, 0.6)",
-          'strokeColor': "rgba(91, 191, 63, 0.6)"
-        };
-        */
+
         var gph = blobby.createGraph([n2,n5],[h5]);
 
         var nodepos = {
-          '1': { x: 200, y: 200 },
+          '1': { x: 200, y: 201 },
           '2': { x: 400, y: 200 }
         };
 

@@ -64,11 +64,13 @@ export default class LineSegment {
   // line determined by p1 and p2
   //
   perpendicularPoint(dist : number) : Point {
-    var vy = -(this.p2.x-this.p1.x)/(this.p2.y-this.p1.y);
-    var vnorm = Math.sqrt(1 + vy*vy);
-    return new Point(this.p1.x + dist/vnorm, this.p1.y + dist*vy/vnorm);
+    if (this.p2.y === this.p1.y) {
+      return new Point(this.p1.x, this.p1.y + dist);
+    } else {
+      var vy = -(this.p2.x-this.p1.x)/(this.p2.y-this.p1.y);
+      var vnorm = Math.sqrt(1 + vy*vy);
+      return new Point(this.p1.x + dist/vnorm, this.p1.y + dist*vy/vnorm);
+    }
   }
 
 }
-
-//module.exports.LineSegment = LineSegment;
