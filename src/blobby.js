@@ -13,21 +13,24 @@ import Node from './graph/Node';
 import Hypergraph from './graph/Hypergraph';
 import GraphLayout from './layout/GraphLayout';
 import drawHypergraph from './render/GraphRenderer';
+import GraphStyle from './style/GraphStyle';
 
 module.exports.createGraph = function(nodes: Array<Node>, edges: Array<Edge>) {
   return new Hypergraph(nodes,edges,[]);
 }
 
-/*
-module.exports.createStyleMap = function(gph: Graph) {
 
+module.exports.createStyleMap = function(nodeStyles: { [key: string]: NodeStyle },
+                                         edgeStyles: { [key: string]: EdgeStyle },
+                                         arcStyles: { [key: string]: ArcStyle } ) {
+  return new GraphStyle(nodeStyles,edgeStyles,arcStyles);
 }
-*/
+
 module.exports.createLayout = function(gph: Hypergraph,nodepos: NodePosObj) {
   return new GraphLayout(gph,nodepos);
 }
 
 
-module.exports.drawHypergraph = function(ctx:any, graph: Hypergraph, layout: GraphLayout) {
-  drawHypergraph(ctx,graph,layout);
+module.exports.drawHypergraph = function(ctx:any, graph: Hypergraph, layout: GraphLayout, style: GraphStyle) {
+  drawHypergraph(ctx,graph,layout,style);
 }

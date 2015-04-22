@@ -12,11 +12,12 @@
 import Point from '../geometry/Point';
 import PointSet from '../geometry/PointSet';
 import LineSegment from '../geometry/LineSegment';
+import Edge from '../graph/Edge';
 import EdgeLayout from '../layout/EdgeLayout';
 
 // Draws a circle for a singleton edge
 //
-function createSingletonPath(context: any, convexHull: PointSet, pad: number) {
+function createSingletonPath(convexHull: PointSet, pad: number) {
   var edgePath = new Path2D();
   var point = convexHull.pset[0];
   edgePath.arc(point.x,point.y,pad,0,Math.PI*2,true);
@@ -40,7 +41,7 @@ function getControlPoints(p0:Point,p1:Point,p2:Point) : Array<Point> {
 //draws hyperedge that is a pair of vertices using splines
 //connecting arcs around each node.
 //
-function createPairPath(context : any, convexHull : PointSet, pad: number) {
+function createPairPath(convexHull : PointSet, pad: number) {
 
   var p0 = convexHull.pset[0];
   var p1 = convexHull.pset[1];
@@ -87,7 +88,7 @@ function createPairPath(context : any, convexHull : PointSet, pad: number) {
 //draws hyperedge following convexhull of point set
 //using arcs centered on equidistant point relative to ends of each segment
 //
-function createHullPath(context: any, convexHull: PointSet, pad: number) {
+function createHullPath(convexHull: PointSet, pad: number) {
   var edgePath = new Path2D();
   for (var i = 0; i < convexHull.size(); i++) {
     var p0 = convexHull.pset[(i+convexHull.size()-1)%convexHull.size()];
@@ -121,7 +122,7 @@ function createHullPath(context: any, convexHull: PointSet, pad: number) {
 }
 
 
-export default function drawHyperedge(context : any,
+export default function drawHyperedge(context : Context,
                                       edge: Edge,
                                       layout: EdgeLayout,
                                       style: EdgeStyle) {
@@ -132,11 +133,11 @@ export default function drawHyperedge(context : any,
   var convexHull = layout.get(edge).computeConvexHull();
   if (convexHull.size() > 0) {
     if (convexHull.size() === 1) {
-      edgePath = createSingletonPath(context,convexHull,style.padSize);
+      edgePath = createSingletonPath(convexHull,style.padSize);
     } else if (convexHull.size() === 2) {
-      edgePath = createPairPath(context,convexHull,style.padSize);
+      edgePath = createPairPath(convexHull,style.padSize);
     } else {
-      edgePath = createHullPath(context,convexHull,style.padSize);
+      edgePath = createHullPath(convexHull,style.padSize);
     }
     context.fillStyle = style.fillColor;
     context.fill(edgePath);

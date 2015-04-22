@@ -31,34 +31,28 @@ to get everything going.
 If you are going to do any coding, you'll also need **flow** (see [flowtype.org](http://flowtype.org))
 
 ##The code
-Flow and ES6 have a tense relationship, and while my goal was to take advantage of ES6 as much as possible, when flow says "Unimplemented: WHATEVER" then I stripped out my use of WHATEVER. At the moment this means
-
-1. ES6 module import
-2. let/const instead of var
-
-When flow catches up to the standard, and I notice, I'll shift it that way.
-Another tidbit specific to flow is the use of type aliases, which at the moment cannot be shared across modules. So, I've ended up putting shared aliases into blocks. Eventually, these will replaced by imports from the appropriate modules.
+Flow and ES6 have a tense relationship, and while my goal was to take advantage of ES6 as much as possible, when flow says "Unimplemented: WHATEVER" then I stripped out my use of WHATEVER. At the moment, this is just let/const instead of var, since I decided that I could live with it complaining about ES6 module import.
 
 ##Using blobby.js
-the model for blobby is that the style and layout of the graph are maps from its components.
+The model for blobby is that the style and layout of the graph are maps from its components.
 Components of a graph, using flow types, are simply objects:
 
-    type Node = { id: number, label: string };
-    type Edge = { id: number, label: string, nodes: Array<Node> };
-    type Arc =  { id: number, label: string, src: Node, tgt: Node };
+    type Node = { id: string, label: string };
+    type Edge = { id: string, label: string, nodes: Array<Node> };
+    type Arc =  { id: string, label: string, src: Node, tgt: Node };
 
 where an Arc is actually just a simple edge. A Graph is simply a tuple of sets of these components.
 
-A layout is determined by a map of type
+A graph is built from arrays for nodes, edges and arcs as in
 
-    Node => Point
+    var nodes = [ n1, n2, n3, n4, n5 ];
+    var edges = [ e3, e4, e1, e2 ];
+    var arcs = [ a1, a2, a3, a4 ];
+    var gph = blobby.createGraph(nodes,edges,arcs);
 
-this map induces maps
+The order of the hyperedges is used when rendering the graph (more below).
 
-    Edge => PointSet
-    Arc => (Point,Point)
-
-based on inclusion of nodes in a hyperedge or simple edge. The layout can be determined by an object literal that specifies the positions of each node by id. For example, a graph with five nodes might have positions set as
+A layout is determined by the assignment of points to vertices, which can be specified using an object literal like
 
     var nodepos = {
       "1": { "x": 500, "y": 200 },
@@ -68,7 +62,17 @@ based on inclusion of nodes in a hyperedge or simple edge. The layout can be det
       "5": { "x": 250, "y": 160 }
     };
 
-The rendering of the graph is done using the layout and style. The layout determines the position of the nodes/edges/arcs, while the style determines what they look like. Each component type has its own style type:
+which specifies the node id and corresponding position. Using this information the layout of hyperedges and arcs is inferred.
+
+The layout construction depends on both the graph and the node positions, and would be built as
+
+    var gphLayout = blobby.createLayout(gph,nodepos);
+
+A hyperedge is drawn as a shape following the convex hull of the locations of the nodes. So, to avoid a node that is not in an edge being rendered over the edge it has to be outside of the convex hull for the edge nodes.
+
+A padding size parameter must be given to determine how far the boundary of the edge shape will be from each point. Except for edges that are pairs of nodes (different from an arc), the edge shape is effectively formed by connecting circles drawn around each convex hull point with the pad size as the radius. The padding size is (currently) given as part of an edge style object (discussed below).
+
+Rendering of the graph is done using the layout and style. The layout determines the position of the nodes/edges/arcs, while the style determines what they look like. Each component type has its own style type:
 
     type NodeStyle = {
       size: number,
@@ -89,10 +93,26 @@ The rendering of the graph is done using the layout and style. The layout determ
       strokeWidth: number
     };
 
-The styles are assigned to the graph by specifying maps
+The styles for each kind of component are given in an object for each type of component to a corresponding style object – so having the types:
 
-    Node => NodeStyle
-    Edge => EdgeStyle
-    Arc => ArcStyle
+   { [id: string]: NodeStyle }
+   { [id: string]: EdgeStyle }
+   { [id: string]: ArcStyle }
 
- using an object to relate component IDs to the corresponding style. Since, this could get hairy big, we need other ways to specify styles.
+Each node, hyperedge, or arc must have a specified style, or it will not be rendered. The style map is constructed like this
+
+    var gphStyles = blobby.createStyleMap(nodeStyles,edgeStyles,arcStyles);
+
+Once we have each of these pieces we can draw the graph with
+
+    blobby.drawHypergraph(ctx,gph,gphLayout,gphStyles);
+
+where **ctx** is the canvas context object.
+
+## Pointers
+
+Specific points to ponder when setting up a graph:
+
+1. Nodes not in an edge should be outside of the convex hull of the nodes in the edge, otherwise they will be drawn over the edge shape.
+2. Hyperedges should be given in decreasing order of inclusion: if an edge is a subset of another edge, it should come after the first one. Otherwise, the larger edge will obscure the smaller one when rendered.
+3. Components are only rendered if they have a specified style. You can use this to hide a component.

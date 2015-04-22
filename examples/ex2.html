@@ -33,7 +33,41 @@
         var gph = blobby.createGraph([ n1, n2, n3, n4, n5 ],[ h3, h4, h1, h2 ]);
         var gphLayout = blobby.createLayout(gph,nodepos);
 
-        blobby.drawHypergraph(ctx,gph,gphLayout);
+        var edgestyles = {
+          '1': { padSize: 20,
+                 fillColor: "blue",
+                 strokeColor: "pink",
+                 strokeWidth: 1
+               },
+          '2': { padSize: 20,
+                 fillColor: "green",
+                 strokeColor: "purple",
+                 strokeWidth: 1
+               },
+          '3': { padSize: 30,
+                 fillColor: "aqua",
+                 strokeColor: "pink",
+                 strokeWidth: 1
+               },
+          '4': { padSize: 25,
+                 fillColor: "orange",
+                 strokeColor: "green",
+                 strokeWidth: 1
+               }
+        };
+
+        var defNodeStyle = { size: 5,
+                             fillColor: "white",
+                             strokeColor: "black",
+                             strokeWidth: 1
+                           };
+        var nodestyles = {};
+        gph.nodes.forEach(function (n) {
+          nodestyles[n.id] = defNodeStyle;
+        })
+
+        var edgeStyles = blobby.createStyleMap(nodestyles,edgestyles,{});
+        blobby.drawHypergraph(ctx,gph,gphLayout,edgeStyles);
 
       }
     }

@@ -12,7 +12,7 @@ import Point from '../geometry/Point';
 import Node from '../graph/Node';
 import NodeLayout from '../layout/NodeLayout';
 
-export default function drawNode(context : any,
+export default function drawNode(context : Context,
                                  node : Node,
                                  layout: NodeLayout,
                                  style: NodeStyle) : void {

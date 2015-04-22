@@ -13,18 +13,20 @@ import Hypergraph from '../graph/Hypergraph';
 import GraphLayout from '../layout/GraphLayout';
 import drawHyperedge from './EdgeRenderer';
 import drawNode from './NodeRenderer';
+import GraphStyle from '../style/GraphStyle'
 
-var defNodeStyle = { size: 5, fillColor: "black", strokeColor: "blue", strokeWidth: 1 };
-var defEdgeStyle = { padSize: 20, fillColor: "pink", strokeColor: "rgba(91, 191, 63, 0.6)", strokeWidth: 1};
-
-//TODO: make sure padding is big enough for node size!
-//TODO: allow extra padding for nested hyperedges
-export default function drawHypergraph( context: any, graph: Hypergraph, layout: GraphLayout) {
+export default function drawHypergraph( context: Context, graph: Hypergraph, layout: GraphLayout, style:GraphStyle) {
   for (var i = 0; i < graph.edges.length; i++) {
-    drawHyperedge(context, graph.edges[i],layout.edgeLayout,defEdgeStyle);
+    if (style.edgeMap.has(graph.edges[i].id)) {
+      var edgeStyle = style.edgeMap.get(graph.edges[i].id);
+      drawHyperedge(context, graph.edges[i],layout.edgeLayout,edgeStyle);
+    }
   }
   for (var i = 0; i < graph.nodes.length; i++) {
-    drawNode(context, graph.nodes[i],layout.nodeLayout,defNodeStyle);
+    if (style.nodeMap.has(graph.nodes[i].id)) {
+      var nodeStyle = style.nodeMap.get(graph.nodes[i].id);
+      drawNode(context, graph.nodes[i],layout.nodeLayout,nodeStyle);
+    }
   }
   //TODO: add Arcs
 }
