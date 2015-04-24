@@ -10,6 +10,8 @@
  */
 
 import Node from './graph/Node';
+import Edge from './graph/Edge';
+import Arc from './graph/Arc';
 import Hypergraph from './graph/Hypergraph';
 import GraphLayout from './layout/GraphLayout';
 import drawHypergraph from './render/GraphRenderer';
