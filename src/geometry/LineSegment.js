@@ -44,10 +44,13 @@ export default class LineSegment {
   // first answer from
   // http://math.stackexchange.com/questions/92836/point-of-an-equilateral-triangle
   //
-  computeArcCenter(): Point {
-    var x = ((this.p2.x+this.p1.x)+Math.sqrt(3)*(this.p2.y-this.p1.y))/2;
-    var y = ((this.p2.y+this.p1.y)-Math.sqrt(3)*(this.p2.x-this.p1.x))/2;
-
+  // note: scale === 1 is equilateral triangle
+  //
+  computeArcCenter(scale: number = 1): Point {
+    var dx = this.p2.x-this.p1.x;
+    var dy = this.p2.y-this.p1.y;
+    var x = (this.p2.x+this.p1.x)/2+Math.sqrt(scale*scale*4-1)*dy/2;
+    var y = (this.p2.y+this.p1.y)/2-Math.sqrt(scale*scale*4-1)*dx/2;
     return new Point(x,y);
   }
 
