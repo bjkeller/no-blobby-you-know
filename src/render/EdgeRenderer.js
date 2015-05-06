@@ -5,7 +5,7 @@
  * All rights reserved
  *
  * This source code is licensed under the MIT License found in the LICENSE
- * file in the route directory of the source tree.
+ * file in the root directory of the source tree.
  *
  */
 
@@ -28,15 +28,24 @@ function createSingletonPath(convexHull: PointSet, pad: number) {
 //using arcs centered on equidistant point relative to ends of each segment
 //
 function createHullPath(convexHull: PointSet, pad: number) {
-  var scale = 1;
-  if (convexHull.size() === 2) {
-    scale = 3;
-  }
+  //var scale = 1;
+  //if (convexHull.size() === 2) {
+//    scale = 3;
+//  }
+
   var edgePath = new Path2D();
   for (var i = 0; i < convexHull.size(); i++) {
     var p0 = convexHull.pset[(i+convexHull.size()-1)%convexHull.size()];
     var p1 = convexHull.pset[i];
     var p2 = convexHull.pset[(i+1)%convexHull.size()];
+
+    var distance = p1.computeDistanceTo(p2);
+
+    //compute scale
+    //multiplier for height of equilateral triangle
+    //var height = Math.sqrt(3)/2*distance+2*pad;
+    //var scale = Math.sqrt((height*height)/(distance*distance)+1/4);
+    var scale = 3;
 
     //find third point of equilateral triangle to serve as center of
     //arc connecting points of the convex hull.
@@ -49,9 +58,9 @@ function createHullPath(convexHull: PointSet, pad: number) {
     edgePath.arc(p1.x,p1.y,pad,p1.computeAngle(ctr0),p1.computeAngle(ctr1),false);
 
     //draw arc between hull point arcs using ctr1 as center
-    var distance = p1.computeDistanceTo(p2);
+
     edgePath.arc(ctr1.x,ctr1.y,
-      scale*distance-pad,
+      scale*distance-pad, //scale*distance-pad,
       ctr1.computeAngle(p1),
       ctr1.computeAngle(p2),
       true);

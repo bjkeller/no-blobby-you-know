@@ -62,11 +62,17 @@
                              strokeWidth: 1
                            };
         var nodestyles = {};
-        gph.nodes.forEach(function (n) {
+        gph.nodes.forEach(function(n) {
           nodestyles[n.id] = defNodeStyle;
         })
 
-        var styles = blobby.createStyleMap(nodestyles,edgestyles,{});
+        var defArcStyle = { strokeColor: "white", strokeWidth: 1 };
+        var arcstyles = {};
+        gph.arcs.forEach(function(a) {
+          arcstyles[a.id] = defArcStyle;
+        });
+
+        var styles = blobby.createStyleMap(nodestyles,edgestyles,arcstyles);
         blobby.drawHypergraph(ctx,gph,gphLayout,styles);
 
       }

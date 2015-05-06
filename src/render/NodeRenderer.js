@@ -5,7 +5,7 @@
  * All rights reserved
  *
  * This source code is licensed under the MIT License found in the LICENSE
- * file in the route directory of the source tree.
+ * file in the root directory of the source tree.
  *
  */
 import Point from '../geometry/Point';
@@ -19,10 +19,11 @@ export default function drawNode(context : Context,
   var pos = layout.get(node);
   var nodePath = new Path2D();
   nodePath.arc(pos.x,pos.y,style.size,0,Math.PI*2,true);
+
   context.fillStyle = style.fillColor;
   context.strokeStyle = style.strokeColor;
   context.lineWidth = style.strokeWidth;
-
   context.fill(nodePath);
   context.stroke(nodePath);
+  context.fillText(node.label,pos.x+1.5*style.size,pos.y-0.5*style.size);
 }

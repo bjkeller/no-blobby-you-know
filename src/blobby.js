@@ -5,7 +5,7 @@
  * All rights reserved
  *
  * This source code is licensed under the MIT License found in the LICENSE
- * file in the route directory of the source tree.
+ * file in the root directory of the source tree.
  *
  */
 
@@ -17,8 +17,8 @@ import GraphLayout from './layout/GraphLayout';
 import drawHypergraph from './render/GraphRenderer';
 import GraphStyle from './style/GraphStyle';
 
-module.exports.createGraph = function(nodes: Array<Node>, edges: Array<Edge>) {
-  return new Hypergraph(nodes,edges,[]);
+module.exports.createGraph = function(nodes: Array<Node>, edges: Array<Edge>, arcs: Array<Arc>) {
+  return new Hypergraph(nodes,edges,arcs);
 }
 
 
