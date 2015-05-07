@@ -11,7 +11,7 @@
 
 import Hypergraph from '../graph/Hypergraph';
 import GraphLayout from '../layout/GraphLayout';
-import drawHyperedge from './EdgeRenderer';
+import { fillHyperedge, strokeHyperedge, fillHyperedgeLabel } from './EdgeRenderer';
 import drawNode from './NodeRenderer';
 import drawArc from './ArcRenderer';
 import GraphStyle from '../style/GraphStyle'
@@ -20,7 +20,7 @@ export default function drawHypergraph( context: Context, graph: Hypergraph, lay
   for (var i = 0; i < graph.edges.length; i++) {
     if (style.edgeMap.has(graph.edges[i].id)) {
       var edgeStyle = style.edgeMap.get(graph.edges[i].id);
-      drawHyperedge(context, graph.edges[i],layout.edgeLayout,edgeStyle);
+      fillHyperedge(context, graph.edges[i],layout.edgeLayout,edgeStyle);
     }
   }
   for (var i = 0; i < graph.arcs.length; i++) {
@@ -31,11 +31,18 @@ export default function drawHypergraph( context: Context, graph: Hypergraph, lay
       drawArc(context,arc,layout.nodeLayout,arcStyle);
     }
   }
+  for (var i = 0; i < graph.edges.length; i++) {
+    if (style.edgeMap.has(graph.edges[i].id)) {
+      var edgeStyle = style.edgeMap.get(graph.edges[i].id);
+      strokeHyperedge(context, graph.edges[i],layout.edgeLayout,edgeStyle);
+      fillHyperedgeLabel(context,graph.edges[i],layout.edgeLayout,edgeStyle);
+    }
+  }
   for (var i = 0; i < graph.nodes.length; i++) {
     if (style.nodeMap.has(graph.nodes[i].id)) {
       var nodeStyle = style.nodeMap.get(graph.nodes[i].id);
       drawNode(context, graph.nodes[i],layout.nodeLayout,nodeStyle);
     }
   }
-  
+
 }
