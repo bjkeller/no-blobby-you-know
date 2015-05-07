@@ -28,8 +28,8 @@ module.exports.createStyleMap = function(nodeStyles: { [key: string]: NodeStyle 
   return new GraphStyle(nodeStyles,edgeStyles,arcStyles);
 }
 
-module.exports.createLayout = function(gph: Hypergraph,nodepos: NodePosObj) {
-  return new GraphLayout(gph,nodepos);
+module.exports.createLayout = function(gph: Hypergraph,nodepos: NodePosObj, padSize: number) {
+  return new GraphLayout(gph,nodepos,padSize);
 }
 
 

@@ -17,9 +17,9 @@ export default class GraphLayout {
   nodeLayout : NodeLayout;
   edgeLayout : EdgeLayout;
 
-  constructor(gph: Graph, npos : NodePosObj) {
+  constructor(gph: Graph, npos : NodePosObj, padSize: number) {
     this.nodeLayout = new NodeLayout(npos);
-    this.edgeLayout = new EdgeLayout(gph,this.nodeLayout);
+    this.edgeLayout = new EdgeLayout(gph,this.nodeLayout,padSize);
   }
 
 }

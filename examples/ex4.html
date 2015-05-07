@@ -121,7 +121,8 @@
           '27': { x: 4.25*scale, y: 9.5*scale }
         };
 
-        var gphLayout = blobby.createLayout(gph,nodepos);
+        var padSize = 20;
+        var gphLayout = blobby.createLayout(gph,nodepos,padSize);
 
         var edgestyles = {
           '1': { padSize: 20,
