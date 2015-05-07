@@ -37,5 +37,5 @@ export default function drawHypergraph( context: Context, graph: Hypergraph, lay
       drawNode(context, graph.nodes[i],layout.nodeLayout,nodeStyle);
     }
   }
-  //TODO: add Arcs
+  
 }

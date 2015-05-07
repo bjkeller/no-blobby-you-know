@@ -25,5 +25,6 @@ export default function drawNode(context : Context,
   context.lineWidth = style.strokeWidth;
   context.fill(nodePath);
   context.stroke(nodePath);
+  
   context.fillText(node.label,pos.x+1.5*style.size,pos.y-0.5*style.size);
 }
